@@ -3,22 +3,22 @@ const auth = require("../middlewares/auth");
 const User = require("../models/user");
 const Stamp = require("../models/stamp");
 
-router.get("/", auth({ block: true }), async (req, res) => {
-  const user = await User.findById(res.locals.user.userId);
-  //if (!user) return res.status(404);
-  res.json({ user });
+//this should all be public
+
+router.get("/all", auth({ block: false }), async (req, res) => {
+    // return all stamps data
+    console.log('/api/stamp/all called');
+    const stamps = await Stamp.find();
+    res.json({ stamps });
 });
 
-/* router.get("/api/dashboards/:id", async (req, res) => {
-  //send :id daschboard
-});
-
-router.get("/api/dashboards/:id/todos", async (req, res) => {
-  // send :id dashpoard todos
-}); */
-
-router.get("/:id/todos/:todoId", async (req, res) => {
-  // send :id dashpoard todos
+router.get("/:id", async (req, res) => {
+  // return one stamp data
+  id = req.params.id;
+  console.log(`/api/stamp/${id} called`);
+  const stamp = await Stamp.find({ id });
+  if (!stamp) return res.status(404).send("Stamp not found");
+  res.json({ stamp });
 });
 
 router.post("/", async (req, res) => {

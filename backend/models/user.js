@@ -1,14 +1,11 @@
 const mongoose = require("mongoose");
 
-const todoSchema = new mongoose.Schema({
+const hikeSchema = new mongoose.Schema({
   title: { type: String, required: true }, //empty string NONO!
-  content: { type: String, required: true }, //empty string is enough
-  isDone: { type: Boolean, default: false },
-});
-
-const dashboardSchema = new mongoose.Schema({
-  title: { type: String, required: true }, //empty string NONO!
-  todos: [todoSchema], //empty list as default?
+  description: { type: String, required: false },
+  start: { type: String, required: true }, //we assume that all stamps are collected between the start and end
+  end: { type: String, required: true },
+  date: {type: Date, required: true}
 });
 
 const userSchema = new mongoose.Schema({
@@ -18,7 +15,7 @@ const userSchema = new mongoose.Schema({
     oid: { type: String, sparse: true, unique: true },
     github: { type: String, sparse: true, unique: true }
   },
-  dashboards: [dashboardSchema], //empty list as default?
+  hikes: [hikeSchema], //empty list as default
 });
 
 const User = mongoose.model("user", userSchema);
