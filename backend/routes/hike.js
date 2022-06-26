@@ -1,48 +1,63 @@
 const router = require("express").Router();
 const auth = require("../middlewares/auth");
 const User = require("../models/user");
-const Stamp = require("../models/stamp");
 
-//this should all be public
-
-router.get("/all", auth({ block: false }), async (req, res) => {
+router.get("/all", auth({ block: true }), async (req, res) => {
     // return all hikes beloning to the user
-    console.log('/api/hike/all called');
-    // const stamps = await Stamp.find();
-    // res.json({ stamps });
+    const user = await User.findById(res.locals.user.userId);
+    if (!user) return res.status(404).send("User not found");
+    const hikes = user.hikes;
+    res.json(hikes);
 });
 
-router.get("/:id", async (req, res) => {
-  // return one hike data
+router.get("/:id", auth({ block: true}), async (req, res) => {
+  // return one hike data belonging to the user
   id = req.params.id;
-  console.log(`/api/hike/${id} called`);
-//   const stamp = await Stamp.find({ id });
-//   if (!stamp) return res.status(404).send("Stamp not found");
-//   res.json({ stamp });
+  const user = await User.findById(res.locals.user.userId);
+  if (!user) return res.status(404).send("User not found");
+  // finding subdocument in array of hikes by id
+  // this can probably be done with some sort of weird mongo query, but I'm not sure how
+  for (let hike of user.hikes) {
+    if (hike._id == id) {
+      console.log(hike);
+      return res.json(hike);
+    }
+  }
+  res.status(404).send("Hike not found");
 });
 
 router.post("/new", auth({ block: true }), async (req, res) => {
-  //add a new hike log to the user
-    console.log('/api/hike/new called');
-    const user = await User.findById(res.locals.user.userId);
-    if (!user) return res.status(404).send("User not found");
-    console.log(user);
+  //add a new hike log to the logged in user
+  const { title, description, start, end } = req.body;
+  const date = new Date().toDateString();
+  const user = await User.findById(res.locals.user.userId);
+  if (!user) return res.status(404).send("User not found");
+  const hike = {
+    title,
+    description,
+    start,
+    end,
+    date
+  }
+  user.hikes.push(hike);
+  await user.save();
+  res.sendStatus(200);
 });
 
-router.post("/:id/todos", async (req, res) => {
-  // create todo ,
-});
+// router.post("/:id/todos", async (req, res) => {
+//   // create todo ,
+// });
 
-router.patch("/:id", async (req, res) => {
-  //update existing dashboard
-});
+// router.patch("/:id", async (req, res) => {
+//   //update existing dashboard
+// });
 
-router.delete("/:id", async (req, res) => {
-  //delete :id dashboard
-});
+// router.delete("/:id", async (req, res) => {
+//   //delete :id dashboard
+// });
 
-router.delete("/:id/todos/:todoId", async (req, res) => {
-  //delete todo
-});
+// router.delete("/:id/todos/:todoId", async (req, res) => {
+//   //delete todo
+// });
 
 module.exports = router;

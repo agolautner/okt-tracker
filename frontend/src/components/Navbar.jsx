@@ -15,6 +15,8 @@ const Navbar = () => {
                 {/* we can call the navigate function directly */}
                 <button onClick={() => navigate('/')}>HOME</button>
                 <button onClick={() => navigate('/about')}>ABOUT</button>
+                <button onClick={() => navigate('/stamps')}>STAMPS</button>
+                <button onClick={() => navigate('/newhike')}>NEW HIKE</button>
                 {/* or implement a function which allows for logic before rerouting */}
                 <button onClick={() => nav('/profile')}>PROFILE</button>
             </div>

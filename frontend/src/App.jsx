@@ -8,6 +8,8 @@ import Profile from './pages/Profile';
 import Callback from './pages/Callback'
 import Protected from './components/Protected';
 import Register from './pages/Register';
+import NewHike from './pages/NewHike';
+import Stamps from './pages/Stamps';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
+          <Route path='/stamps' element={<Stamps/>}/>
+          <Route path='/newhike' element={<NewHike/>}/>
           <Route path='/profile' element={(
             <Protected key={1}>
               <Profile/>

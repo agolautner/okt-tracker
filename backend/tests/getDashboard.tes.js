@@ -39,6 +39,7 @@ describe("/api/dashboards GET tests", () => {
     expect(response.status).toBe(200);
     const responseData = response.body;
     expect(responseData.user.dashboards).toStrictEqual([]);
+    //check db too
   });
 
   test("deleted user get returns nothing", async () => {
