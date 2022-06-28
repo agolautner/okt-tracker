@@ -8,7 +8,7 @@ const Stamp = require("../models/stamp");
 router.get("/all", async (req, res) => {
     // return all stamps data
     console.log('/api/stamp/all called');
-    const stamps = await Stamp.find();
+    const stamps = await Stamp.find().sort({id: 1});
     res.json(stamps);
 });
 
@@ -25,7 +25,7 @@ router.get("/search", async (req, res) => {
   // query stamps by name
   console.log('search called');
   const { q } = req.query;
-  const stamps = await Stamp.find({ name: { $regex: q, $options: "i" } });
+  const stamps = await Stamp.find({ name: { $regex: q, $options: "i" } }).sort({id: 1});
   res.json(stamps);
 });
 

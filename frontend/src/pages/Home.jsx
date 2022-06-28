@@ -18,6 +18,10 @@ const Home = () => {
         <>
             <div>Home</div>
             <p>{token ? 'logged in' : 'anonymous user'}</p>
+
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=Berkeley,CA&zoom=14&size=400x400&key=AIzaSyDDbZlvSn8DHvxfUFUHv0My4G8th56JMZM" alt="a map" />
+            <img src="https://maps.googleapis.com/maps/api/staticmap?markers=47.252173,16.252941&size=400x400&key=AIzaSyDDbZlvSn8DHvxfUFUHv0My4G8th56JMZM" alt="a map" />
+
             <button onClick={decrement}>-</button>
             <button onClick={increment}>+</button>
             <p>{value}</p>
