@@ -1,14 +1,22 @@
-import React from 'react'
+import React, {useEffect} from 'react';
+import './Stamp.css';
+import Accordion from 'react-bootstrap/Accordion';
 
 const Stamp = ({stamp}) => {
     const {lat, lng} = stamp.coordinates;
-    const apiURL = `https://maps.googleapis.com/maps/api/staticmap?&markers=color:blue%7Clabel:K%7C${lat},${lng}&size=400x400&key=AIzaSyDDbZlvSn8DHvxfUFUHv0My4G8th56JMZM`
+    const apiKey = 'some string'; // process.env.REACT_APP_API_KEY doesn't seem to do the trick, don't know why
 
-  return ( 
-        <div key={stamp.id}>
-            <h5>{stamp.id} {stamp.name}</h5>
-            <img src={apiURL} alt="map of the stamping location" />
-        </div>
+    useEffect(() => {
+      console.log(apiKey);
+    }, []);
+
+  return (
+        <Accordion.Item eventKey={stamp.id}>
+          <Accordion.Header>{stamp.id} {stamp.name}</Accordion.Header>
+          <Accordion.Body>
+            <img className='Stamp-map' src={`https://maps.googleapis.com/maps/api/staticmap?&markers=color:blue%7Clabel:K%7C${lat},${lng}&size=400x400&key=${apiKey}`} alt={`map of stamp nr ${stamp.id}`}/>
+          </Accordion.Body>
+        </Accordion.Item>
   )
 }
 

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const oktStamps = require("./stamp_data");
+// const oktStamps = require("./stamp_data");
 
 
 const stampSchema = new mongoose.Schema({

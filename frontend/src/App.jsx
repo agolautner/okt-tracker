@@ -1,25 +1,26 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import React from 'react';
 import { Routes, Route, useNavigate } from "react-router-dom";
-import Navbar from './components/Navbar';
+import Navigation from './components/Navigation';
 import Home from './pages/Home';
 import About from './pages/About';
 import Profile from './pages/Profile';
 import Callback from './pages/Callback'
 import Protected from './components/Protected';
 import Register from './pages/Register';
-import NewHike from './pages/NewHike';
+import Hikes from './pages/Hikes';
 import Stamps from './pages/Stamps';
 
 function App() {
   return (
       <div className="App">
-        <Navbar />
+        <Navigation />
         <Routes>
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/stamps' element={<Stamps/>}/>
-          <Route path='/newhike' element={<NewHike/>}/>
+          <Route path='/hikes' element={<Hikes/>}/>
           <Route path='/profile' element={(
             <Protected key={1}>
               <Profile/>

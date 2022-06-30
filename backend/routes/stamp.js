@@ -2,6 +2,7 @@ const router = require("express").Router();
 const auth = require("../middlewares/auth");
 const User = require("../models/user");
 const Stamp = require("../models/stamp");
+const axios = require("axios");
 
 //this should all be public, as there is no personal data in the stamps
 
@@ -9,6 +10,7 @@ router.get("/all", async (req, res) => {
     // return all stamps data
     console.log('/api/stamp/all called');
     const stamps = await Stamp.find().sort({id: 1});
+    if (!stamps) return res.status(404).send("Stamps not found");
     res.json(stamps);
 });
 

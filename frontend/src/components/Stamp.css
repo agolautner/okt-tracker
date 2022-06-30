@@ -1,0 +1,42 @@
+.Stamp {
+    position: relative;
+  
+    max-width: 765px;
+  
+    background-color: white;
+    border-left: 12px solid #3058a6;
+    border-radius: 6px;
+  
+    text-align: left;
+  
+    margin-top: 40px;
+  }
+  
+  .Stamp-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    position: relative;
+    max-width: 45%;
+  
+    padding: 15px 0 15px 15px;
+  }
+  
+  .Stamp-heading {
+    margin: 0;
+    font-size: 46px;
+    color: #3058a6;
+  }
+  
+  .Stamp-img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+  
+    border-radius: 0px 6px 6px 0px;
+  
+    /* object-fit: cover; */
+  }
+  
