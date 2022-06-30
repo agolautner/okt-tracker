@@ -20,6 +20,7 @@ const NewHike = () => {
     const [stamps, setStamps] = useState([]);
 
     const [showAlert, setShowAlert] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const { post, get } = toDoApi(); 
 
@@ -33,7 +34,14 @@ const NewHike = () => {
         };
         console.log(data);
         const response = await post('/hike/new', data); // we don't need to import axios here, we already imported it in the todoapi.js file
-        if (response.status !== 200) {
+        if (response.status === 200) {
+            setShowSuccess(true);
+            setTitle('');
+            setDescription('');
+            setStart(1);
+            setEnd(2);
+            setStartDate(new Date());
+        } else {
             setShowAlert(true);
         }
         console.log(response.status);
@@ -59,6 +67,10 @@ const NewHike = () => {
         <p>
           A wild error has appeared! Please try again. If the error persists, please contact the administrator.
         </p>
+      </Alert>)}
+
+      {showSuccess && (<Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+        <Alert.Heading>Hike log added successfully!</Alert.Heading>
       </Alert>)}
 
       <InputGroup className="mb-3">
@@ -101,7 +113,7 @@ const NewHike = () => {
       
       <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
 
-      <Button variant='primary' onClick={() => handleSubmit()}>Add</Button>
+      <Button variant='primary' onClick={() => handleSubmit()} disabled={(title === '' || description === '')}>Add</Button>
     </div>
   )
 }

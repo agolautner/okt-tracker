@@ -13,7 +13,7 @@ const Callback = () => {
             const params = new URLSearchParams(window.location.search);
             const code = params.get('code');
             if(code) await login(code, pathVariables.provider);
-            navigate('/profile');
+            navigate('/');
         }
         loginWithCode();
         // eslint-disable-next-line

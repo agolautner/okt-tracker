@@ -20,15 +20,20 @@ function App() {
           <Route path='/' element={<Home/>}/>
           <Route path='/about' element={<About/>}/>
           <Route path='/stamps' element={<Stamps/>}/>
-          <Route path='/hikes' element={<Hikes/>}/>
+          {/* <Route path='/hikes' element={<Hikes/>}/> */}
+          <Route path='/hikes' element={(
+            <Protected key={'hikes'}>
+              <Hikes/>
+            </Protected>
+          )}/>
           <Route path='/profile' element={(
-            <Protected key={1}>
+            <Protected key={'profile'}>
               <Profile/>
             </Protected>
           )}/>
           <Route path='/callback/:provider' element={<Callback/>}/>
           <Route path='/register' element={(
-            <Protected key={2}>
+            <Protected key={'register'}>
               <Register/>
             </Protected>
           )}/>
