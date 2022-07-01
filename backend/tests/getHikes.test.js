@@ -123,4 +123,84 @@ describe("/api/hike GET tests", () => {
     const responseData = response.body;
     expect(responseData).toStrictEqual({});
   });
+
+  test("/:id - deleted user GET returns nothing", async () => {
+    //given
+    const id = '56cb91bdc3464f14678934ca';
+    const newUser = new User({
+      username: "Macska",
+      hikes: [
+        {
+          _id: id,
+          title: "Hike 1",
+          description: "Hike 1 description",
+          start: "Hike 1 start",
+          end: "Hike 1 end",
+          date: new Date("2020-01-01")
+        }
+      ]
+    });
+    await newUser.save();
+    const token = jwt.sign({userId: newUser._id}, process.env.JWT_SECRET)
+    client.set("authorization", token);
+    
+    await User.deleteMany();
+
+    //when
+    const response = await client.get("/api/hike/" + id);
+
+    //then
+    expect(response.status).toBe(401);
+    const responseData = response.body;
+    expect(responseData).toStrictEqual(
+      {}
+    );
+  });
+});
+
+describe("/api/hike POST tests", () => {
+  let connection;
+  let mongod;
+  let client;
+
+  beforeAll(async () => {
+    [connection, mongod] = await startDb();
+    client = mockserver.agent(app);
+  });
+
+  afterEach(async () => {
+    await deleteAll(User);
+  });
+
+  afterAll(async () => {
+    await stopDb(connection, mongod);
+  });
+
+  test("/new - returns 200 with valid token and data", async () => {
+    //given
+    const newUser = new User({
+      username: "Macska",
+    });
+    await newUser.save();
+    const token = jwt.sign({userId: newUser._id}, process.env.JWT_SECRET)
+    client.set("authorization", token);
+
+    //when
+    const response = await client.post("/api/hike/new").send({
+      title: "Hike 1",
+      description: "Hike 1 description",
+      start: "Hike 1 start",
+      end: "Hike 1 end",
+      date: new Date("2020-01-01")
+    });
+
+    //then
+    expect(response.status).toBe(200);
+    const responseData = response.body;
+    expect(responseData).toStrictEqual({});
+   
+    // const user = await User.findById(newUser._id);
+    // const hikes = user.hikes;
+    // expect(hikes).toStrictEqual([]); //hikes should not be empty wtf
+  });
 });
