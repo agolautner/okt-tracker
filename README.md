@@ -37,7 +37,7 @@ The following values are needed in order for Google authentication to work:
 
 - GOOGLE_CLIENT_ID={client-id}
 - GOOGLE_CLIENT_SECRET={client-secret}
-- GOOGLE_REDIRECT_URI=http://localhost:3000/callback/google
+- GOOGLE_REDIRECT_URI={url-of-frontend}/callback/google
 - GOOGLE_TOKEN_ENDPOINT=https://oauth2.googleapis.com/token
 - GOOGLE_USER_ENDPOINT=null
 - GOOGLE_USER_ID=null
