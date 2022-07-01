@@ -8,7 +8,7 @@ When displaying the individual stamping locations, an API call is made to the Go
 
 The frontend uses the NPM package react-bootstrap to easily implement a responsive design.
 
-[A detailed documentation of the API is available on my swagger account](https://app.swaggerhub.com/apis/AGOSTON/OKT/1.0.0).
+[A detailed documentation of the API is available on SwaggerHub](https://app.swaggerhub.com/apis/AGOSTON/OKT/1.0.0).
 
 ## Frontend
 

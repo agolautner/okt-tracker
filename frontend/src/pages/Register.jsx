@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../providers/auth';
+import Button from 'react-bootstrap/Button';
 
 const Register = () => {
     const [username, setUsername] = useState('');
@@ -16,14 +17,15 @@ const Register = () => {
 
   return (
     <>
-        <div>Register</div>
+        <h1>Register</h1>
+        <p>Before you can continue using the site, please choose a name!</p>
         <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder='choose a username'/>
-        <button onClick={() => register(username)}>register</button>
-        <hr />
+        <Button variant="primary" onClick={() => register(username)}>register</Button>
+        {/* <hr />
         <h1>OR!</h1>
         <hr />
         <button onClick={() => auth('google')}>google</button>
-        <button onClick={() => auth('oid')}>oid</button>
+        <button onClick={() => auth('oid')}>oid</button> */}
     </>
   )
 }

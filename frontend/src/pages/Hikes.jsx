@@ -47,7 +47,7 @@ const Hikes = () => {
   return (
     <div>
         <h1>Hikes</h1>
-        <NewHike />
+        <NewHike getAllHikes={getAllHikes}/>
         <h2>Your hike logs</h2>
         <Accordion>
             {(hikes.length > 0) ? currentHikes.map((hike) => {

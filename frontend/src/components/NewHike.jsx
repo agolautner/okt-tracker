@@ -10,7 +10,7 @@ import Alert from 'react-bootstrap/Alert'
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect } from 'react';
 
-const NewHike = () => {
+const NewHike = ({getAllHikes}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [start, setStart] = useState(1);
@@ -41,11 +41,11 @@ const NewHike = () => {
             setStart(1);
             setEnd(2);
             setStartDate(new Date());
+            getAllHikes();
         } else {
             setShowAlert(true);
         }
         console.log(response.status);
-        // the hike list should rerender now that we have a new hike
     }
 
     const getAllStamps = async () => {
@@ -69,7 +69,7 @@ const NewHike = () => {
         </p>
       </Alert>)}
 
-      {showSuccess && (<Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+      {showSuccess && (<Alert variant="success" onClose={() => setShowSuccess(false)} dismissible>
         <Alert.Heading>Hike log added successfully!</Alert.Heading>
       </Alert>)}
 
