@@ -18,7 +18,9 @@ const Hikes = () => {
         setLoading(true);
         const response = await get('/hike/all');
         console.log(response.data); // this is the array of hikes belonging to the user
-        setHikes(response.data);
+        const dataArray = response.data;
+        const reversedArray = dataArray.reverse();
+        setHikes(reversedArray);
         return setLoading(false);
     }
 
