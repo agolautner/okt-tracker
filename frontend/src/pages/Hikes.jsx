@@ -54,7 +54,7 @@ const Hikes = () => {
         <Accordion>
             {(hikes.length > 0) ? currentHikes.map((hike) => {
                 return (
-                    <Hike key={hike._id} hike={hike} />
+                    <Hike key={hike._id} hike={hike} getAllHikes={getAllHikes}/>
                 )
             }) : <p>No hikes</p>}
         </Accordion>
