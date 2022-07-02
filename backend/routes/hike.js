@@ -44,6 +44,34 @@ router.delete("/:id", auth({ block: true}), async (req, res) => {
   res.status(404).send("Hike not found");
 });
 
+router.patch("/:id", auth({ block: true}), async (req, res) => {
+  // updates one hike data belonging to the user
+  console.log('patch called');
+  id = req.params.id;
+  const { title, description, start, end, date } = req.body;
+  const user = await User.findById(res.locals.user.userId);
+  if (!user) return res.status(401).send("User not found");
+  res.status(200).send(user);
+  // finding subdocument in array of hikes by id
+  // this can probably be done with some sort of weird mongo query, but I'm not sure how
+  for (let hike of user.hikes) {
+    if (hike._id == id) {
+      console.log('found the hike, updating it with the new data');
+      console.log(hike);
+      
+      // update the hike with the new data
+      hike.title = title;
+      hike.description = description;
+      hike.start = start;
+      hike.end = end;
+      hike.date = date;
+      await user.save();
+      return res.status(200).json('Hike updated');
+    }
+  }
+  res.status(404).send("Hike not found");
+});
+
 router.post("/new", auth({ block: true }), async (req, res) => {
   //add a new hike log to the logged in user
   const { title, description, start, end, date } = req.body;

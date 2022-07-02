@@ -49,6 +49,21 @@ export const toDoApi = () => {
       return error.response;
     }
   };
+
+  const update = async (path, data) => {
+    try {
+      const response = await instance.patch(path, data, {
+        headers: {
+          authorization: localStorage.getItem("token"),
+        },
+      });
+      return response;
+    } catch (error) {
+      console.log(error.response.status);
+      console.log(error.response.data);
+      return error.response;
+    }
+  };
   
-  return { post, get, del, _instance: instance };
+  return { post, get, del, update, _instance: instance };
 };

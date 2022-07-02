@@ -5,7 +5,6 @@ const cors = require("cors");
 
 const auth = require("./middlewares/auth");
 const { errorHandler } = require("./middlewares/errorHandler");
-const dashboardRoutes = require("./routes/dashboard");
 const hikeRoutes = require("./routes/hike");
 const stampRoutes = require("./routes/stamp");
 const userRoutes = require("./routes/user");
@@ -21,7 +20,6 @@ app.use(express.json());
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
-app.use("/api/dashboards", dashboardRoutes);
 app.use("/api/hike", hikeRoutes);
 app.use("/api/stamp", stampRoutes);
 app.use("/api/user", userRoutes);
