@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import DatePicker from 'react-datepicker';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -13,7 +14,7 @@ const Hike = ({hike, getAllHikes}) => {
   const [description, setDescription] = useState(hike.description);
   const [start, setStart] = useState(hike.start);
   const [end, setEnd] = useState(hike.end);
-  const [date, setDate] = useState(hike.date);
+  const [startDate, setStartDate] = useState(new Date(hike.date));
 
   const deleteHike = async () => {
     console.log('deleting hike nr: ' + hike._id);
@@ -29,7 +30,7 @@ const Hike = ({hike, getAllHikes}) => {
       description,
       start,
       end,
-      date
+      date: startDate
     });
     console.log(response);
     setShowEditor(false);
@@ -65,7 +66,9 @@ const Hike = ({hike, getAllHikes}) => {
               />
             </InputGroup>
 
-            <p>{hike.date}</p>
+            <h5>Edit hike date</h5>
+            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+
             <Button variant="primary" onClick={() => updateHike()}>SAVE</Button>
             <Button variant="outline-danger" onClick={() => setShowEditor(false)}>CANCEL</Button>
           </Accordion.Body>
@@ -76,8 +79,9 @@ const Hike = ({hike, getAllHikes}) => {
           <Accordion.Body>
             <p>{hike.description}</p>
             <p>{hike.date}</p>
-            <Button variant="primary" onClick={() => setShowEditor(true)}>Edit</Button>
-            <Button variant="danger" onClick={() => deleteHike()}>Delete</Button>
+            <p>From stamp nr. {hike.start} to nr. {hike.end}</p>
+            <Button variant="primary" onClick={() => setShowEditor(true)}>EDIT</Button>
+            <Button variant="danger" onClick={() => deleteHike()}>DELETE</Button>
           </Accordion.Body>
         </>
       )
