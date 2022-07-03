@@ -19,6 +19,11 @@ The frontend is a simple React app. It can be started up on the localhost by ins
 
 ## Backend
 
+### System requirements:
+
+- nodejs
+- npm
+
 ### Environment variables
 
 The backend folder contains the code of the API, running on Express.js. In order for it to work properly, a **.env** file needs to be added to the root of this folder, containing the following values:
