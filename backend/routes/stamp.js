@@ -20,36 +20,16 @@ router.get("/id/:id", async (req, res) => {
   id = req.params.id;
   console.log(`/api/stamp/${id} called`);
   const stamp = await Stamp.find({ id });
-  if (!stamp) return res.status(404).send("Stamp not found");
+  if (!stamp.length) return res.status(404).send("Stamp not found");
   res.json(stamp);
 });
 
 router.get("/search", async (req, res) => {
   // query stamps by name
-  console.log('search called');
   const { q } = req.query;
   const stamps = await Stamp.find({ name: { $regex: q, $options: "i" } }).sort({id: 1});
+  if (!stamps.length) return res.status(404).send("Stamps not found");
   res.json(stamps);
 });
-
-// router.post("/", async (req, res) => {
-//   //create a dashboard, send cerated id
-// });
-
-// router.post("/:id/todos", async (req, res) => {
-//   // create todo ,
-// });
-
-// router.patch("/:id", async (req, res) => {
-//   //update existing dashboard
-// });
-
-// router.delete("/:id", async (req, res) => {
-//   //delete :id dashboard
-// });
-
-// router.delete("/:id/todos/:todoId", async (req, res) => {
-//   //delete todo
-// });
 
 module.exports = router;

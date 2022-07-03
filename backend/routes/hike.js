@@ -32,7 +32,6 @@ router.delete("/:id", auth({ block: true}), async (req, res) => {
   const user = await User.findById(res.locals.user.userId);
   if (!user) return res.status(401).send("User not found");
   // finding subdocument in array of hikes by id
-  // this can probably be done with some sort of weird mongo query, but I'm not sure how
   for (let hike of user.hikes) {
     if (hike._id == id) {
       console.log(hike);
@@ -51,7 +50,6 @@ router.patch("/:id", auth({ block: true}), async (req, res) => {
   const { title, description, start, end, date } = req.body;
   const user = await User.findById(res.locals.user.userId);
   if (!user) return res.status(401).send("User not found");
-  res.status(200).send(user);
   // finding subdocument in array of hikes by id
   // this can probably be done with some sort of weird mongo query, but I'm not sure how
   for (let hike of user.hikes) {
@@ -66,7 +64,7 @@ router.patch("/:id", auth({ block: true}), async (req, res) => {
       hike.end = end;
       hike.date = date;
       await user.save();
-      return res.status(200).json('Hike updated');
+      return res.status(200).json(hike);
     }
   }
   res.status(404).send("Hike not found");
@@ -77,6 +75,7 @@ router.post("/new", auth({ block: true }), async (req, res) => {
   const { title, description, start, end, date } = req.body;
   const user = await User.findById(res.locals.user.userId);
   if (!user) return res.status(401).send("User not found");
+  if (!title || !description || !start || !end || !date) return res.status(400).send("Missing data");
   const hike = {
     title,
     description,
@@ -88,21 +87,5 @@ router.post("/new", auth({ block: true }), async (req, res) => {
   await user.save();
   res.status(200).json(user);
 });
-
-// router.post("/:id/todos", async (req, res) => {
-//   // create todo ,
-// });
-
-// router.patch("/:id", async (req, res) => {
-//   //update existing dashboard
-// });
-
-// router.delete("/:id", async (req, res) => {
-//   //delete :id dashboard
-// });
-
-// router.delete("/:id/todos/:todoId", async (req, res) => {
-//   //delete todo
-// });
 
 module.exports = router;

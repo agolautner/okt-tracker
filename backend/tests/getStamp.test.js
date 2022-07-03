@@ -88,4 +88,108 @@ describe("/api/stamp tests", () => {
     expect(response.body).toStrictEqual({});
     expect(response.status).toBe(404); // for some reason this is returning 200?? 
   });
+
+  test("/search - returns 200 and a stamp if the query matches something in the db", async () => {
+    //given
+    const newStamp1 = new Stamp({
+        name: "Stamp1",
+        id: 1,
+        img: "Image1",
+        coordinates: {
+            lat: 1,
+            lng: 1
+        },
+        sections: [1,2]
+    });
+    await newStamp1.save();
+
+    const newStamp2 = new Stamp({
+        name: "Stamp2",
+        id: 2,
+        img: "Image2",
+        coordinates: {
+            lat: 2,
+            lng: 2
+        },
+        sections: [1,2]
+    });
+    await newStamp2.save();
+
+    //when
+    const response = await client.get("/api/stamp/search?q=1");
+
+    //then
+    const responseData = response.body;
+    const stamp = responseData[0];
+
+    expect(response.status).toBe(200); 
+    expect(stamp.name).toBe("Stamp1");
+    expect(stamp.id).toBe(1);
+  });
+
+  test("/search - returns 404 if nothing matches the query", async () => {
+    //given
+    const newStamp1 = new Stamp({
+        name: "Stamp1",
+        id: 1,
+        img: "Image1",
+        coordinates: {
+            lat: 1,
+            lng: 1
+        },
+        sections: [1,2]
+    });
+    await newStamp1.save();
+
+    //when
+    const response = await client.get("/api/stamp/search?q=3");
+
+    //then
+    expect(response.status).toBe(404);
+  });
+
+  test("/id/:id - returns 404 if nothing matches the id", async () => {
+    //given
+    const newStamp1 = new Stamp({
+        name: "Stamp1",
+        id: 1,
+        img: "Image1",
+        coordinates: {
+            lat: 1,
+            lng: 1
+        },
+        sections: [1,2]
+    });
+    await newStamp1.save();
+
+    //when
+    const response = await client.get("/api/stamp/id/3");
+
+    //then
+    expect(response.status).toBe(404);
+  });
+
+  test("/id/:id - returns 200 if id matches a stamp in the db", async () => {
+    //given
+    const newStamp1 = new Stamp({
+        name: "Stamp1",
+        id: 1,
+        img: "Image1",
+        coordinates: {
+            lat: 1,
+            lng: 1
+        },
+        sections: [1,2]
+    });
+    await newStamp1.save();
+
+    //when
+    const response = await client.get("/api/stamp/id/1");
+
+    //then
+    expect(response.status).toBe(200);
+    const responseData = response.body;
+    expect(responseData[0].name).toBe("Stamp1");
+    expect(responseData[0].id).toBe(1);
+  });
 });
