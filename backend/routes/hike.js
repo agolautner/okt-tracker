@@ -45,7 +45,6 @@ router.delete("/:id", auth({ block: true}), async (req, res) => {
 
 router.patch("/:id", auth({ block: true}), async (req, res) => {
   // updates one hike data belonging to the user
-  console.log('patch called');
   id = req.params.id;
   const { title, description, start, end, date } = req.body;
   const user = await User.findById(res.locals.user.userId);
@@ -54,9 +53,6 @@ router.patch("/:id", auth({ block: true}), async (req, res) => {
   // this can probably be done with some sort of weird mongo query, but I'm not sure how
   for (let hike of user.hikes) {
     if (hike._id == id) {
-      console.log('found the hike, updating it with the new data');
-      console.log(hike);
-      
       // update the hike with the new data
       hike.title = title;
       hike.description = description;

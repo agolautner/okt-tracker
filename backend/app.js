@@ -24,19 +24,8 @@ app.use("/api/hike", hikeRoutes);
 app.use("/api/stamp", stampRoutes);
 app.use("/api/user", userRoutes);
 
-app.get("/api/public", (req, res) => {
-  console.log("public");
-  res.send("Hello Public World ! ");
-});
-app.get("/api/private", auth({ block: true }), (req, res) => {
-  console.log("private");
-  res.send(`Hello Private world, your user id is: ${res.locals.userId} !`);
-});
-app.get("/api/prublic", auth({ block: false }), (req, res) => {
-  console.log("private");
-  if (!res.locals.userId)
-    return res.send("Hello Prublic World, you're not logged in ! ");
-  res.send(`Hello Prublic World, your user id is: ${res.locals.userId} !`);
+app.get("/api", (req, res) => {
+  res.send("Welcome to the API");
 });
 
 app.use(errorHandler);

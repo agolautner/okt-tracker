@@ -10,7 +10,6 @@ router.get("/all", async (req, res) => {
     // return all stamps data
     console.log('/api/stamp/all called');
     const stamps = await Stamp.find().sort({id: 1});
-    console.log('stamps: ', stamps);
     if (!stamps.length) return res.status(404).send("Stamps not found");
     res.json(stamps);
 });
@@ -18,7 +17,6 @@ router.get("/all", async (req, res) => {
 router.get("/id/:id", async (req, res) => {
   // return one stamp data
   id = req.params.id;
-  console.log(`/api/stamp/${id} called`);
   const stamp = await Stamp.find({ id });
   if (!stamp.length) return res.status(404).send("Stamp not found");
   res.json(stamp);
