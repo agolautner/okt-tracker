@@ -32,7 +32,6 @@ const NewHike = ({getAllHikes}) => {
             end,
             date: startDate
         };
-        console.log(data);
         const response = await post('/hike/new', data); // we don't need to import axios here, we already imported it in the todoapi.js file
         if (response.status === 200) {
             setShowSuccess(true);
@@ -45,12 +44,10 @@ const NewHike = ({getAllHikes}) => {
         } else {
             setShowAlert(true);
         }
-        console.log(response.status);
     }
 
     const getAllStamps = async () => {
       const response = await get('/stamp/all');
-      console.log(response.data);
       setStamps(response.data);
     }
 

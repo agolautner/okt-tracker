@@ -17,14 +17,11 @@ const Hike = ({hike, getAllHikes}) => {
   const [startDate, setStartDate] = useState(new Date(hike.date));
 
   const deleteHike = async () => {
-    console.log('deleting hike nr: ' + hike._id);
     const response = await del(`/hike/${hike._id}`);
-    console.log(response);
     getAllHikes();
   }
 
   const updateHike = async () => {
-    console.log('updating hike nr: ' + hike._id);
     const response = await update(`/hike/${hike._id}`, {
       title,
       description,
@@ -32,7 +29,6 @@ const Hike = ({hike, getAllHikes}) => {
       end,
       date: startDate
     });
-    console.log(response);
     setShowEditor(false);
     getAllHikes();
   }

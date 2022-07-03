@@ -25,11 +25,9 @@ const Stamps = () => {
         if (searchQuery.length > 0) {
             setLoading(true);
             const response = await get(`/stamp/search?q=${searchQuery}`);
-            console.log(response.data);
             setStamps(response.data);
             return setLoading(false);
         }
-        console.log('no search query');
     }
 
     const handleReset = () => {
@@ -38,7 +36,6 @@ const Stamps = () => {
     }
 
     useEffect(() => {
-        console.log('useEffect ran');
         getAllStamps();
     }, []);
 

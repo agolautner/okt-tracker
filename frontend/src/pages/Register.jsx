@@ -11,7 +11,6 @@ const Register = () => {
     const { register, user, auth } = useAuth();
 
     useEffect(() => {
-        console.log(user);
         if(user.userId) navigate('/profile')
     }, [user, navigate])
 
