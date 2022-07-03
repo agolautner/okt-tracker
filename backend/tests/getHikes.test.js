@@ -197,10 +197,15 @@ describe("/api/hike POST tests", () => {
     //then
     expect(response.status).toBe(200);
     const responseData = response.body;
-    expect(responseData).toStrictEqual({});
+    const hikes = responseData.hikes;
+
+    expect(hikes).toHaveLength(1);
+    expect(hikes[0].title).toStrictEqual("Hike 1");
+    expect(hikes[0].description).toStrictEqual("Hike 1 description");
+    expect(hikes[0]._id).not.toBeUndefined();
    
-    // const user = await User.findById(newUser._id);
-    // const hikes = user.hikes;
-    // expect(hikes).toStrictEqual([]); //hikes should not be empty wtf
+    const userInDB = await User.findById(newUser._id);
+    
+    expect((userInDB.hikes[0]._id).toString()).toBe((hikes[0]._id));
   });
 });

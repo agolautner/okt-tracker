@@ -82,10 +82,10 @@ describe("/api/stamp tests", () => {
     await Stamp.deleteMany();
 
     //when
-    const response = await client.get("/api/hike/all");
+    const response = await client.get("/api/stamp/all");
 
     //then
-    expect(response.status).toBe(404); // it returns 401 for some reason and i have no idea why - that endpoint does not have auth(block: true) set up
     expect(response.body).toStrictEqual({});
+    expect(response.status).toBe(404); // for some reason this is returning 200?? 
   });
 });

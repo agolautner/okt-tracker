@@ -86,7 +86,7 @@ router.post("/new", auth({ block: true }), async (req, res) => {
   }
   user.hikes.push(hike);
   await user.save();
-  res.sendStatus(200);
+  res.status(200).json(user);
 });
 
 // router.post("/:id/todos", async (req, res) => {
