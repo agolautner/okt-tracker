@@ -2,9 +2,17 @@
 
 This repository contains the front and backend code for an application I made for logging hikes on the National Blue Trail of Hungary, originally created as an exam project at Codecool.
 
+![landing page](https://github.com/agolautner/okt-tracker-fs-petproject/blob/main/images/loggedout.png?raw=true)
+
 The app utilizes the Google OpenID flow for user authentication, and relies on a MongoDB server for storing user data, as well as information about the official stamping locations on the trail.
 
+![google login flow](https://github.com/agolautner/okt-tracker-fs-petproject/blob/main/images/google.png?raw=true)
+
 When displaying the individual stamping locations, an API call is made to the Google Maps Static Image API, and the returned PNG image is displayed for each location.
+
+![displaying stamps](https://github.com/agolautner/okt-tracker-fs-petproject/blob/main/images/stamps.png?raw=true)
+
+![interface for adding new hike logs to the user's profile](https://github.com/agolautner/okt-tracker-fs-petproject/blob/main/images/hikelog.png?raw=true)
 
 The frontend uses the NPM package react-bootstrap to easily implement a responsive design.
 
